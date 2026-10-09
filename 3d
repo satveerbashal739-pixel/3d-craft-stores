@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Craft Printing | Custom 3D Products</title>
+<meta name="description" content="Shop creative 3D printed toys, keychains, desk accessories and custom 3D prints.">
+<style>
+:root {
+  --ink: #202124;
+  --orange: #ff7139;
+  --paper: #fffaf6;
+  --muted: #706c68;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: Arial, sans-serif;
+  color: var(--ink); background: #fff;
+}
+header {
+  padding: 18px 6%; display: flex; align-items: center;
+  justify-content: space-between; gap: 15px; flex-wrap: wrap;
+  border-bottom: 1px solid #eee;
+}
+.logo { font-size: 23px; font-weight: 800; }
+.logo span { color: var(--orange); }
+nav { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+a { color: inherit; text-decoration: none; }
+button, .btn {
+  cursor:pointer; border:0; border-radius:9px;
+  padding:12px 16px; font-weight:700; font-size:14px;
+}
+.primary { background:var(--orange); color:white; }
+.secondary { background:#fff; border:1px solid #ddd; }
+.hero {
+  padding:65px 7%; background:var(--paper);
+  display:grid; grid-template-columns:1.2fr .8fr;
+  align-items:center; gap:30px;
+}
+.hero h1 { font-size:clamp(36px,5vw,60px); margin:12px 0; line-height:1.08; }
+.hero p { color:var(--muted); line-height:1.7; max-width:520px; }
+.tag { color:#db5426; font-weight:700; }
+.hero-art {
+  background:#f5e4d8; border-radius:24px; min-height:260px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:100px;
+}
+section { padding:45px 6%; }
+.section-head {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:15px; flex-wrap:wrap; margin-bottom:24px;
+}
+.section-head h2 { margin:0; font-size:30px; }
+.filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+.filters button { background:#f3f3f3; }
+.filters button.active { background:var(--ink); color:white; }
+.products {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px;
+}
+.product {
+  border:1px solid #eee; border-radius:15px; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.product img {
+  width:100%; aspect-ratio:1/1; object-fit:cover;
+  background:#f7f3ef;
+}
+.product-info { padding:15px; display:flex; flex-direction:column; flex:1; }
+.product h3 { margin:0 0 8px; font-size:17px; }
+.product p { margin:0 0 12px; color:var(--muted); font-size:13px; line-height:1.5; }
+.price { font-size:19px; font-weight:800; margin-bottom:12px; }
+.product .primary { margin-top:auto; }
+.custom {
+  background:#202124; color:white; border-radius:20px;
+  padding:32px; display:grid; grid-template-columns:1fr 1fr; gap:25px;
+}
+.custom p { color:#ddd; line-height:1.6; }
+input, textarea, select {
+  width:100%; padding:12px; margin:6px 0 12px;
+  border:1px solid #ddd; border-radius:8px; font:inherit;
+}
+label { font-size:13px; font-weight:700; }
+.custom label { color:white; }
+footer { background:#f7f5f2; padding:28px 6%; color:var(--muted); }
+#cartPanel {
+  position:fixed; right:0; top:0; bottom:0; z-index:5;
+  width:min(420px,100%); background:white; padding:22px;
+  box-shadow:0 0 0 100vmax #0006; overflow:auto;
+}
+.hidden { display:none !important; }
+.cart-line {
+  display:flex; justify-content:space-between; gap:12px;
+  padding:14px 0; border-bottom:1px solid #eee;
+}
+.qty { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.qty button { padding:5px 10px; }
+.cart-total { font-size:22px; font-weight:800; margin:20px 0; }
+.notice { color:var(--muted); font-size:12px; line-height:1.5; }
+@media(max-width:900px) {
+  .products { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hero { grid-template-columns:1fr; padding:42px 6%; }
+  .hero-art { min-height:180px; }
+  .custom { grid-template-columns:1fr; }
+}
+@media(max-width:480px) {
+  header { padding:15px 4%; }
+  nav { gap:12px; font-size:13px; }
+  .products { gap:10px; }
+  .product-info { padding:10px; }
+  .product h3 { font-size:15px; }
+  section { padding:32px 4%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">3D <span>CRAFT</span></a>
+  <nav>
+    <a href="#shop">Shop</a>
+    <a href="#custom">Custom Print</a>
+    <a href="#contact">Contact</a>
+    <button class="primary" onclick="openCart()">
+      Cart (<span id="cartCount">0</span>)
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div>
+      <span class="tag">MADE LAYER BY LAYER</span>
+      <h1>Ideas ko do<br>3D shape.</h1>
+      <p>Creative 3D printed gifts, toys and useful accessories.
+      Apna design bhejo aur custom printing ka quote pao.</p>
+      <a class="btn primary" href="#shop">Explore Products →</a>
+      <a class="btn secondary" href="#custom">Custom Order</a>
+    </div>
+    <div class="hero-art" aria-label="3D printed creations">🐉 🪴</div>
+  </div>
+
+  <section id="shop">
+    <div class="section-head">
+      <h2>Our Products</h2>
+      <span id="productCount">4 products</span>
+    </div>
+    <div class="filters">
+      <button class="active" onclick="filterProducts('All',this)">All</button>
+      <button onclick="filterProducts('Toys',this)">Toys</button>
+      <button onclick="filterProducts('Accessories',this)">Accessories</button>
+      <button onclick="filterProducts('Gifts',this)">Gifts</button>
+    </div>
+    <div class="products" id="products"></div>
+  </section>
+
+  <section id="custom">
+    <div class="custom">
+      <div>
+        <span class="tag">YOUR IDEA, OUR PRINTER</span>
+        <h2>Need a custom 3D print?</h2>
+        <p>Share your idea, model name, required quantity and
+        preferred size. We will contact you to discuss pricing
+        and print feasibility.</p>
+        <p>STL / OBJ files can be discussed on WhatsApp.</p>
+      </div>
+      <form onsubmit="sendCustom(event)">
+        <label for="customer">Your name</label>
+        <input id="customer" required placeholder="Enter your name">
+        <label for="phone">Phone number</label>
+        <input id="phone" required type="tel" placeholder="10-digit mobile number"
+               pattern="[0-9 +()-]{10,16}">
+        <label for="idea">What do you want printed?</label>
+        <textarea id="idea" required rows="3"
+                  placeholder="Product, size, quantity, colour..."></textarea>
+        <button class="primary" type="submit">Request a Quote on WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Let's create something!</h2>
+    <p>Questions about products, delivery or custom printing?</p>
+    <button class="primary" onclick="contactUs()">Chat on WhatsApp</button>
+  </section>
+</main>
+
+<footer>
+  <strong>3D CRAFT PRINTING</strong>
+  <p>Creative prints. Personalised ideas.</p>
+  <p>Replace this text with your business location and contact details.</p>
+  <small>© <span id="year"></span> 3D Craft Printing. All rights reserved.</small>
+</footer>
+
+<div id="cartPanel" class="hidden" role="dialog" aria-label="Shopping cart">
+  <div class="section-head">
+    <h2>Your Cart</h2>
+    <button class="secondary" onclick="closeCart()">Close ✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+  <label for="buyerName">Your name</label>
+  <input id="buyerName" placeholder="Enter your name">
+  <label for="buyerAddress">Delivery city / address</label>
+  <textarea id="buyerAddress" rows="2" placeholder="Enter delivery details"></textarea>
+  <button class="primary" style="width:100%" onclick="checkout()">
+    Order via WhatsApp
+  </button>
+  <p class="notice">Your order is not confirmed until the seller replies.
+  Shipping charges and final availability will be confirmed separately.</p>
+</div>
+
+<script>
+// IMPORTANT: Replace with your WhatsApp number including country code.
+// Example India: 919876543210 (no + sign or spaces).
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+const products = [
+  {
+    id:1, name:"Flexi Dragon", category:"Toys", price:299,
+    description:"Articulated dragon toy. Choose available colours.",
+    image:"https://placehold.co/600x600/f5e4d8/202124?text=Flexi+Dragon"
+  },
+  {
+    id:2, name:"Custom Name Keychain", category:"Gifts", price:99,
+    description:"Personalised name keychain. Name details required.",
+    image:"https://placehold.co/600x600/f3e9f7/202124?text=Name+Keychain"
+  },
+  {
+    id:3, name:"Mobile Stand", category:"Accessories", price:199,
+    description:"Compact desk accessory for your phone.",
+    image:"https://placehold.co/600x600/e4edf8/202124?text=Mobile+Stand"
+  },
+  {
+    id:4, name:"Mini Planter", category:"Accessories", price:249,
+    description:"Decorative 3D printed planter. Size may vary.",
+    image:"https://placehold.co/600x600/e5f0e4/202124?text=Mini+Planter"
+  }
+];
+
+let cart = [];
+let activeCategory = "All";
+
+function money(amount) {
+  return amount.toLocaleString("en-IN");
+}
+
+function renderProducts() {
+  const shown = products.filter(p =>
+    activeCategory === "All" || p.category === activeCategory
+  );
+  document.getElementById("productCount").textContent =
+    shown.length + (shown.length === 1 ? " product" : " products");
+
+  document.getElementById("products").innerHTML = shown.map(p => `
+    <article class="product">
+      <img src="${p.image}" alt="${p.name}" loading="lazy">
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <div class="price">₹${money(p.price)}</div>
+        <button class="primary" onclick="addToCart(${p.id})">
+          Add to Cart
+        </button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function filterProducts(category, button) {
+  activeCategory = category;
+  document.querySelectorAll(".filters button").forEach(b =>
+    b.classList.remove("active")
+  );
+  button.classList.add("active");
+  renderProducts();
+}
+
+function addToCart(id) {
+  const item = cart.find(x => x.id === id);
+  if (item) item.qty++;
+  else cart.push({id, qty:1});
+  renderCart();
+  openCart();
+}
+
+function changeQty(id, amount) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += amount;
+  cart = cart.filter(x => x.qty > 0);
+  renderCart();
+}
+
+function renderCart() {
+  const count = cart.reduce((sum,x) => sum + x.qty, 0);
+  const total = cart.reduce((sum,x) => {
+    const p = products.find(p => p.id === x.id);
+    return sum + p.price * x.qty;
+  }, 0);
+
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartTotal").textContent = money(total);
+
+  document.getElementById("cartItems").innerHTML = cart.length
+    ? cart.map(x => {
+        const p = products.find(p => p.id === x.id);
+        return `<div class="cart-line">
+          <div><strong>${p.name}</strong><br>₹${money(p.price)} each
+            <div class="qty">
+              <button class="secondary" onclick="changeQty(${p.id},-1)">−</button>
+              <span>${x.qty}</span>
+              <button class="secondary" onclick="changeQty(${p.id},1)">+</button>
+            </div>
+          </div>
+          <strong>₹${money(p.price*x.qty)}</strong>
+        </div>`;
+      }).join("")
+    : "<p>Your cart is empty. Add a product to get started.</p>";
+}
+
+function openCart() {
+  document.getElementById("cartPanel").classList.remove("hidden");
+}
+function closeCart() {
+  document.getElementById("cartPanel").classList.add("hidden");
+}
+
+function validWhatsApp() {
+  if (!/^91\d{10}$/.test(WHATSAPP_NUMBER)) {
+    alert("Please set your real WhatsApp number in the website code first.");
+    return false;
+  }
+  return true;
+}
+
+function sendWhatsApp(message) {
+  if (!validWhatsApp()) return;
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+function checkout() {
+  if (!cart.length) {
+    alert("Please add a product to your cart first.");
+    return;
+  }
+  const name = document.getElementById("buyerName").value.trim();
+  const address = document.getElementById("buyerAddress").value.trim();
+  if (!name || !address) {
+    alert("Please enter your name and delivery details.");
+    return;
+  }
+
+  const lines = cart.map(x => {
+    const p = products.find(p => p.id === x.id);
+    return `${p.name} x ${x.qty} = Rs ${p.price*x.qty}`;
+  }).join("\n");
+
+  const total = cart.reduce((sum,x) =>
+    sum + products.find(p => p.id === x.id).price*x.qty, 0);
+
+  sendWhatsApp(
+    `Hello! I want to place an order.\n\nName: ${name}\nDelivery details: ${address}\n\n${lines}\n\nProduct subtotal: Rs ${total}\nPlease confirm availability, shipping charges and final payment details.`
+  );
+}
+
+function sendCustom(event) {
+  event.preventDefault();
+  const name = document.getElementById("customer").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const idea = document.getElementById("idea").value.trim();
+
+  sendWhatsApp(
+    `Hello! I need a custom 3D print quote.\nName: ${name}\nPhone: ${phone}\nRequirement: ${idea}`
+  );
+}
+
+function contactUs() {
+  sendWhatsApp("Hello! I would like to know more about your 3D printing products.");
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
